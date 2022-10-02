@@ -1,13 +1,13 @@
 import gradio as gr
-from . import dl, vid, model
+import dl, vid, model
 
 
 
 def visualize(url):
   dl.download_song(url)
-  captions = dl.parse_subtitle()
-  image_paths = model.generate_images(captions)
-  vid_path = create_video()
+  subtitles = dl.parse_subtitle()
+  image_paths = model.generate_images(subtitles)
+  vid_path = vid.create_video(subtitles, image_paths)
   return vid_path
 
 gr.Interface(

@@ -13,7 +13,7 @@ def download_song(url):
     'outtmpl': 'song.mp4',
     # Subtitle stuff  
     'writesubtitles': True,
-    'subtitle': '--write-sub --sub-lang en --convert-subs srt',
+    'subtitle': '--write-sub --sub-lang en',
   }
   with youtube_dl.YoutubeDL(ydl_opts) as ydl:
     ydl.download([url])
@@ -28,7 +28,7 @@ def _to_ascii(s):
   return ''.join([i if ord(i) < 128 else ' ' for i in s])
 
 def parse_subtitle():
-  filename = "song.mpt.en.vtt"
+  filename = "song.mp4.en.vtt"
   result = []
   subtitle_reader = webvtt.read(filename)
   for caption in subtitle_reader:
@@ -36,6 +36,6 @@ def parse_subtitle():
     end = _parse_timestamp(caption.end)
     text = _to_ascii(caption.text)
     result.append((start, end, text))
-  subtitles.save_as_srt()
+  subtitle_reader.save_as_srt()
 
   return result
