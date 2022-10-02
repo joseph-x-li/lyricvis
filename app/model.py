@@ -17,10 +17,8 @@ def generate_images(captions):
     filename = f"{abs(hash(prompt))}.png"
     result.append(filename)
     if not exists(filename):
-      print(f"Generating on")
       full_prompt = salt + p_back + prompt if p_back is not None else salt + prompt
-      print(f"full_prompt: {full_prompt}")
-      print(f"...")
+      print(f"Generating using: {full_prompt}...", end="")
       img = _gen(full_prompt)
       img.save(filename)
   
