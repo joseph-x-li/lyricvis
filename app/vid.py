@@ -9,7 +9,7 @@ def create_video(subtitles, image_paths):
     # 0 -> begin, same path
     # add a fake frame
     image_paths = [image_paths[0]] + image_paths
-    subtitles = [(0.0, subtitles[0][0], subtitles[0][1])]
+    subtitles = [(0.0, subtitles[0][0], subtitles[0][1])] + subtitles
   image_clips = [ImageClip(x) for x in image_paths]
   image_clips_dur = []
   for (start, end, _), ic in zip(subtitles, image_clips):
