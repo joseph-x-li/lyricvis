@@ -3,7 +3,7 @@ from os.path import exists
 # pipe = StableDiffusionPipeline.from_pretrained("/Users/josephli/Github/lyricvis/app/stable-diffusion-v1-4")
 pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", use_api_key=True)
 
-pipe = pipe.to("mps")
+# pipe = pipe.to("mps")
 
 salt = "Realistic, modern, concept art, HQ, image with the following caption: "
 
@@ -14,14 +14,15 @@ def generate_images(prompts):
   """Return list of filenames
   """
   result = []
-  prompts_shift = [None] + prompts[:-1]
+  prompts_shift = [(None, None, None)] + prompts[:-1]
   for p_back, prompt in zip(prompts_shift, prompts):
+    p_back, prompt = p_back[2], prompt[2]
     filename = f"{abs(hash(prompt))}.png"
     result.append(filename)
     if not exists(filename):
       print(f"Generating on")
-      full_prompt = salt + p_back + prompt
-      print(f"full_prompt")
+      full_prompt = salt + p_back + prompt if p_back is not None else salt + prompt
+      print(f"full_prompt: {full_prompt}")
       print(f"...")
       img = _gen(full_prompt)
       img.save(filename)
