@@ -2,10 +2,10 @@ from diffusers import StableDiffusionPipeline
 from os.path import exists
 pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", use_api_key=True).to("cuda")
 
-salt = "Realistic, modern, concept art, HQ, no text, image with the following caption: "
+salt = "Realistic, modern, concept art, 4K,  HQ, no text, image with the following caption: "
 
 def _gen(prompt):
-  return pipe(prompt).images[0]
+  return pipe(prompt, num_inference_steps=35).images[0]
 
 def generate_images(captions):
   """Return list of filenames
