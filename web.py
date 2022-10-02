@@ -10,7 +10,7 @@ def visualize(URL):
   return vid_path
 
 gr.Interface(
-  fn=visualize, 
-  inputs="text", 
+  fn=visualize,
+  inputs="text",
   outputs="video",
-).launch()
+).launch(server_name="0.0.0.0")
