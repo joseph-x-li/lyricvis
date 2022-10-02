@@ -2,7 +2,7 @@ from diffusers import StableDiffusionPipeline
 from os.path import exists
 pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", use_api_key=True).to("cuda")
 
-salt = "Realistic, modern, concept art, HQ, image with the following caption: "
+salt = "Realistic, modern, concept art, HQ, no text, image with the following caption: "
 
 def _gen(prompt):
   return pipe(prompt).images[0]
