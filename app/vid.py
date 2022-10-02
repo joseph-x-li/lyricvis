@@ -20,5 +20,5 @@ def create_video(subtitles, image_paths):
 
   aud = AudioFileClip("song.mp3")
   vid = vid.set_audio(aud)
-  vid.write_videofile("final_video.mp4")
+  vid.write_videofile("final_video.mp4", fps=24)
   return "final_video.mp4"
