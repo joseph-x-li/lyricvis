@@ -18,7 +18,7 @@ def create_video(subtitles, image_paths):
     image_clips_dur.append(ic.set_duration(f"00:0{mins}:{secs:.2f}"))
   vid = concatenate_videoclips(image_clips_dur)
 
-  gen = lambda txt: TextClip(txt, font='Georgia-Regular', fontsize=18, color='white', method="caption", size=512, align="South")
+  gen = lambda txt: TextClip(txt, font='Georgia-Regular', fontsize=18, color='white', method="caption", size=(512, 512), align="South")
   sub = SubtitlesClip("song.mp4.en.srt", gen)
 
   vid = CompositeVideoClip([vid, sub])
