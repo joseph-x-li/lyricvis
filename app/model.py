@@ -1,10 +1,7 @@
 from diffusers import StableDiffusionPipeline
 from os.path import exists
-
-pipe = StableDiffusionPipeline.from_pretrained(
-  "/Users/josephli/Github/lyricvis/app/weights/sd-v1-4.ckpt",
-  use_auth_token=True,
-)
+# pipe = StableDiffusionPipeline.from_pretrained("/Users/josephli/Github/lyricvis/app/stable-diffusion-v1-4")
+pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", use_api_key=True)
 
 pipe = pipe.to("mps")
 
