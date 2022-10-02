@@ -10,8 +10,7 @@ def create_video(subtitles, image_paths):
   for (start, end, _), ic in zip(subtitles, image_clips):
     mins, secs= divmod(end - start, 60)
     mins = int(mins)
-    ic.set_duration(f"00:0{mins}:{secs:.2f}")
-    image_clips_dur.append(ic)
+    image_clips_dur.append(ic.set_duration(f"00:0{mins}:{secs:.2f}"))
   vid = concatenate_videoclips(image_clips_dur)
 
   gen = lambda txt: TextClip(txt, font='Georgia-Regular', fontsize=24, color='white')
