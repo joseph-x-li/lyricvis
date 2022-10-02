@@ -1,22 +1,19 @@
 from diffusers import StableDiffusionPipeline
 from os.path import exists
-# pipe = StableDiffusionPipeline.from_pretrained("/Users/josephli/Github/lyricvis/app/stable-diffusion-v1-4")
-pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", use_api_key=True)
-
-# pipe = pipe.to("mps")
+pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", use_api_key=True).to("cuda")
 
 salt = "Realistic, modern, concept art, HQ, image with the following caption: "
 
 def _gen(prompt):
   return pipe(prompt).images[0]
 
-def generate_images(prompts):
+def generate_images(captions):
   """Return list of filenames
   """
   result = []
-  prompts_shift = [(None, None, None)] + prompts[:-1]
-  for p_back, prompt in zip(prompts_shift, prompts):
-    p_back, prompt = p_back[2], prompt[2]
+  captions_shift = [(None, None, None)] + captions[:-1]
+  for c_back, cap in zip(captions_shift, captions):
+    p_back, prompt = c_back[2], cap[2]
     filename = f"{abs(hash(prompt))}.png"
     result.append(filename)
     if not exists(filename):
