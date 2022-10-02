@@ -12,8 +12,10 @@ def create_video(subtitles, image_paths):
     subtitles = [(0.0, subtitles[0][0], subtitles[0][1])] + subtitles
   image_clips = [ImageClip(x) for x in image_paths]
   image_clips_dur = []
-  for (start, end, _), ic in zip(subtitles, image_clips):
-    mins, secs= divmod(end - start, 60)
+  for idx, (start, end, _), ic in enumerate(zip(subtitles, image_clips)):
+    if idx < len(subtitles) - 1: # not at the end
+      end = subtitles[idx + 1][0] # set the end as the start of the next
+    mins, secs = divmod(end - start, 60)
     mins = int(mins)
     image_clips_dur.append(ic.set_duration(f"00:0{mins}:{secs:.2f}"))
   vid = concatenate_videoclips(image_clips_dur)
